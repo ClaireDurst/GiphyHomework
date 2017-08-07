@@ -1,31 +1,31 @@
 $( document ).ready(function() {
-var actions = [];
+var topics = [];
 function displayGifButtons(){
     $("#gifButtonsView").empty();
-    for (var i = 0; i < actions.length; i++){
+    for (var i = 0; i < topics.length; i++){
         var gifButton = $("<button>");
-        gifButton.addClass("action");
+        gifButton.addClass("topic");
         gifButton.addClass("btn btn-primary")
-        gifButton.attr("data-name", actions[i]);
-        gifButton.text(actions[i]);
+        gifButton.attr("data-name", topics[i]);
+        gifButton.text(topics[i]);
         $("#gifButtonsView").append(gifButton);
     }
 }
 function addNewButton(){
     $("#addGif").on("click", function(){
-    var action = $("#action-input").val().trim();
-    if (action == ""){
+    var topic = $("#topic-input").val().trim();
+    if (topic == ""){
       return false; // added so user cannot add a blank button
     }
-    actions.push(action);
+    topics.push(topic);
 
     displayGifButtons();
     return false;
     });
 }
 function displayGifs(){
-    var action = $(this).attr("data-name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + action + "&api_key=dc6zaTOxFJmzC&limit=10";
+    var topic = $(this).attr("data-name");
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + topic + "&api_key=dc6zaTOxFJmzC&limit=10";
     console.log(queryURL);
     $.ajax({
         url: queryURL,
@@ -58,7 +58,7 @@ function displayGifs(){
 displayGifButtons();
 addNewButton();
 
-$(document).on("click", ".action", displayGifs);
+$(document).on("click", ".topic", displayGifs);
 $(document).on("click", ".image", function(){
     var state = $(this).attr('data-state');
     if ( state == 'still'){
